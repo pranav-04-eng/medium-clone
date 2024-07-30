@@ -1,10 +1,11 @@
 import { Children, useEffect, useRef, useState } from "react";
-
+export let activeTabLineref;
+export let activeTabRef;
 const InpageNavigation=({children,routes,defaultHidden=[ ],defaultActiveIndex=0})=>{
-    let activeTabLineref=useRef();
-    let activeTabRef=useRef();
+     activeTabLineref=useRef();
+     activeTabRef=useRef();
     let [inPageNavIndex,setInpageNavIndex]=useState({defaultActiveIndex});
-    //hr linr for selected component
+    //hr linr for selected component 
     const changePageState=(btn,i)=>{
         let{offsetWidth,offsetLeft}=btn;
         activeTabLineref.current.style.width=offsetWidth +"px";
@@ -14,8 +15,8 @@ const InpageNavigation=({children,routes,defaultHidden=[ ],defaultActiveIndex=0}
     //since home does not get the default line when rendered we use this useeffect to get the header ruler line  to home 
     useEffect(()=>{
         changePageState(activeTabRef.current,defaultActiveIndex)
-    },[])
-
+    },[]) 
+    //new return statement
     return(
         <>
             <div className="relative mb-8 bg-white border-b border-grey flex flex-nowrap overflow-x-auto">

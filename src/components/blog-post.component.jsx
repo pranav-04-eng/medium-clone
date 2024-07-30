@@ -1,12 +1,19 @@
-import { getDay } from '../common/date';
-import { Link } from 'react-router-dom';
+import axios from "axios";
 
 const BlogPostCard = ({ content, author }) => {
   let { publishedAt, tags, title, des, banner, activity: { total_likes }, blog_id: id } = content;
   let { fullname, username, profile_img } = author;
-
+  const fetchBlog=()=>{
+      axios
+        .get(import.meta.env.VITE_SERVER_DOMAIN + `/blog/${id}`)
+        .then(({ data }) => {
+          console.log(data);
+        })
+        .catch((err) => console.log(err.message));
+    };
+  
   return (
-    <Link to={`/blog/${id}`} className="flex gap-8 items-center border-b border-grey pb-5 mb-4">
+    <div onClick={fetchBlog} className="flex gap-8 items-center border-b border-grey pb-5 mb-4">
       <div className="flex flex-1">
         <div className="flex-grow">
           <div className="flex gap-2 items-center mb-2">
@@ -25,7 +32,7 @@ const BlogPostCard = ({ content, author }) => {
           <img src={banner} className="w-full h-full object-cover rounded-md" alt={title} />
         </div>
       </div>
-    </Link>
+    </div>
   );
 }
 
